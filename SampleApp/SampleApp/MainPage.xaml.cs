@@ -173,104 +173,104 @@ namespace SampleApp
             });
         }
 
-        async void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-			if (!(e.SelectedItem is SelectionItem selectedItem))
-				return;
+        async void OnItemSelected(object sender, SelectedItemChangedEventArgs e) {
+            if (!(e.SelectedItem is SelectionItem selectedItem))
+                return;
 
-			int i = selectedItem.Identifier;
+            int i = selectedItem.Identifier;
 
-			switch (i) {
-				case 0:
-					await ((NavigationPage)Application.Current.MainPage).PushAsync(new InternetSample());
-					break;
+            switch (i)
+            {
+                case 0:
+                    await ((NavigationPage)Application.Current.MainPage).PushAsync(new InternetSample());
+                    break;
 
-				case 1:
-					await ((NavigationPage)Application.Current.MainPage).PushAsync(new LocalFileSample());
-					break;
+                case 1:
+                    await ((NavigationPage)Application.Current.MainPage).PushAsync(new LocalFileSample());
+                    break;
 
-				case 2:
-					await ((NavigationPage)Application.Current.MainPage).PushAsync(new StringDataSample());
-					break;
+                case 2:
+                    await ((NavigationPage)Application.Current.MainPage).PushAsync(new StringDataSample());
+                    break;
 
-				case 3:
-					await ((NavigationPage)Application.Current.MainPage).PushAsync(new SourceSwapSample());
-					break;
+                case 3:
+                    await ((NavigationPage)Application.Current.MainPage).PushAsync(new SourceSwapSample());
+                    break;
 
-				case 4:
-					await ((NavigationPage)Application.Current.MainPage).PushAsync(new NavigationEventsSample());
-					break;
+                case 4:
+                    await ((NavigationPage)Application.Current.MainPage).PushAsync(new NavigationEventsSample());
+                    break;
 
-				case 5:
-					await ((NavigationPage)Application.Current.MainPage).PushAsync(new NavigationLocalSample());
-					break;
+                case 5:
+                    await ((NavigationPage)Application.Current.MainPage).PushAsync(new NavigationLocalSample());
+                    break;
 
-				case 6:
-					await ((NavigationPage)Application.Current.MainPage).PushAsync(new NavigationStringSample());
-					break;
+                case 6:
+                    await ((NavigationPage)Application.Current.MainPage).PushAsync(new NavigationStringSample());
+                    break;
 
-				case 7:
-					await ((NavigationPage)Application.Current.MainPage).PushAsync(new NavigatingEvent());
-					break;
+                case 7:
+                    await ((NavigationPage)Application.Current.MainPage).PushAsync(new NavigatingEvent());
+                    break;
 
-				case 8:
-					await ((NavigationPage)Application.Current.MainPage).PushAsync(new JavascriptInternet());
-					break;
+                case 8:
+                    await ((NavigationPage)Application.Current.MainPage).PushAsync(new JavascriptInternet());
+                    break;
 
-				case 9:
-					await ((NavigationPage)Application.Current.MainPage).PushAsync(new JavascriptSample());
-					break;
+                case 9:
+                    await ((NavigationPage)Application.Current.MainPage).PushAsync(new JavascriptSample());
+                    break;
 
-				case 10:
-					await ((NavigationPage)Application.Current.MainPage).PushAsync(new JavascriptString());
-					break;
+                case 10:
+                    await ((NavigationPage)Application.Current.MainPage).PushAsync(new JavascriptString());
+                    break;
 
-				case 11:
-					await ((NavigationPage)Application.Current.MainPage).PushAsync(new BackgroundColorSample());
-					break;
+                case 11:
+                    await ((NavigationPage)Application.Current.MainPage).PushAsync(new BackgroundColorSample());
+                    break;
 
-				case 12:
-					await ((NavigationPage)Application.Current.MainPage).PushAsync(new BackForwardSample());
-					break;
+                case 12:
+                    await ((NavigationPage)Application.Current.MainPage).PushAsync(new BackForwardSample());
+                    break;
 
-				case 13:
-					await ((NavigationPage)Application.Current.MainPage).PushAsync(new RefreshSample());
-					break;
+                case 13:
+                    await ((NavigationPage)Application.Current.MainPage).PushAsync(new RefreshSample());
+                    break;
 
-				case 14:
-					await ((NavigationPage)Application.Current.MainPage).PushAsync(new HeadersSample());
-					break;
+                case 14:
+                    await ((NavigationPage)Application.Current.MainPage).PushAsync(new HeadersSample());
+                    break;
 
-				case 15:
-					await ((NavigationPage)Application.Current.MainPage).PushAsync(new LiveCallbackSample());
-					break;
+                case 15:
+                    await ((NavigationPage)Application.Current.MainPage).PushAsync(new LiveCallbackSample());
+                    break;
 
-				case 16:
-					await ((NavigationPage)Application.Current.MainPage).PushAsync(new NavigationPageStart());
-					break;
+                case 16:
+                    await ((NavigationPage)Application.Current.MainPage).PushAsync(new NavigationPageStart());
+                    break;
 
-				case 17:
-					await ((NavigationPage)Application.Current.MainPage).PushAsync(new NavigationPageWipe());
-					break;
+                case 17:
+                    await ((NavigationPage)Application.Current.MainPage).PushAsync(new NavigationPageWipe());
+                    break;
 
-				case 18:
-					await ((NavigationPage)Application.Current.MainPage).PushAsync(new NullSourceSample());
-					break;
+                case 18:
+                    await ((NavigationPage)Application.Current.MainPage).PushAsync(new NullSourceSample());
+                    break;
 
-				case 19:
-					await ((NavigationPage)Application.Current.MainPage).PushAsync(new EmailDataSample());
-					break;
+                case 19:
+                    await ((NavigationPage)Application.Current.MainPage).PushAsync(new EmailDataSample());
+                    break;
 
-				case 20:
-					await ((NavigationPage)Application.Current.MainPage).PushAsync(new ScrollToSample());
-					break;
+                case 20:
+                    await ((NavigationPage)Application.Current.MainPage).PushAsync(new ScrollToSample());
+                    break;
 
-				default:
-					break;
-			}
+                default:
+                    break;
+            }
 
-			ItemList.SelectedItem = null;
-		}
+            ItemList.SelectedItem = null;
+        }
     }
 
 }

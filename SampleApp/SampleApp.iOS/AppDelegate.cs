@@ -4,8 +4,6 @@ using System.Linq;
 
 using Foundation;
 using UIKit;
-using WebKit;
-using Xam.Plugin.WebView.iOS;
 
 namespace SampleApp.iOS
 {
@@ -24,8 +22,6 @@ namespace SampleApp.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            FormsWebViewRenderer.Initialize();
-
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 
