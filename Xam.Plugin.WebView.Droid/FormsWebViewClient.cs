@@ -48,18 +48,10 @@ namespace Xam.Plugin.WebView.Droid
             string url = request.Url.ToString();
             var response = renderer.Element.HandleNavigationStartRequest(url);
 
-            if (response.Cancel || response.OffloadOntoDevice)
-            {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    if (response.OffloadOntoDevice)
-                        AttemptToHandleCustomUrlScheme(view, url);
+			if (response.Cancel || response.OffloadOntoDevice && AttemptToHandleCustomUrlScheme(view, url))
+			    Device.BeginInvokeOnMainThread(view.StopLoading);
 
-                    view.StopLoading();
-                });
-            }
-
-            EndShouldInterceptRequest:
+			EndShouldInterceptRequest:
             return base.ShouldInterceptRequest(view, request);
         }
 
@@ -70,17 +62,9 @@ namespace Xam.Plugin.WebView.Droid
 
             var response = renderer.Element.HandleNavigationStartRequest(url);
 
-            if (response.Cancel || response.OffloadOntoDevice)
-            {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    if (response.OffloadOntoDevice)
-                        AttemptToHandleCustomUrlScheme(view, url);
-
-                    view.StopLoading();
-                });
-            }
-        }
+			if (response.Cancel || response.OffloadOntoDevice && AttemptToHandleCustomUrlScheme(view, url))
+			    Device.BeginInvokeOnMainThread(view.StopLoading);
+		}
 
         public override void OnPageStarted(Android.Webkit.WebView view, string url, Bitmap favicon)
         {
@@ -92,34 +76,40 @@ namespace Xam.Plugin.WebView.Droid
 
         bool AttemptToHandleCustomUrlScheme(Android.Webkit.WebView view, string url)
         {
-            if (url.StartsWith("mailto"))
-            {
-                Android.Net.MailTo emailData = Android.Net.MailTo.Parse(url);
+			if (url.StartsWith("mailto")) 
+			{
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    Android.Net.MailTo emailData = Android.Net.MailTo.Parse(url);
 
-                Intent email = new Intent(Intent.ActionSendto);
+                    Intent email = new Intent(Intent.ActionSendto);
 
-                email.SetData(Android.Net.Uri.Parse("mailto:"));
-                email.PutExtra(Intent.ExtraEmail, new String[] { emailData.To });
-                email.PutExtra(Intent.ExtraSubject, emailData.Subject);
-                email.PutExtra(Intent.ExtraCc, emailData.Cc);
-                email.PutExtra(Intent.ExtraText, emailData.Body);
+                    email.SetData(Android.Net.Uri.Parse("mailto:"));
+                    email.PutExtra(Intent.ExtraEmail, new String[] { emailData.To });
+                    email.PutExtra(Intent.ExtraSubject, emailData.Subject);
+                    email.PutExtra(Intent.ExtraCc, emailData.Cc);
+                    email.PutExtra(Intent.ExtraText, emailData.Body);
 
-                if (email.ResolveActivity(Forms.Context.PackageManager) != null)
-                    Forms.Context.StartActivity(email);
-
-                return true;
-            }
-
-            if (url.StartsWith("http"))
-            {
-                Intent webPage = new Intent(Intent.ActionView, Android.Net.Uri.Parse(url));
-                if (webPage.ResolveActivity(Forms.Context.PackageManager) != null)
-                    Forms.Context.StartActivity(webPage);
+                    if (email.ResolveActivity(Forms.Context.PackageManager) != null)
+                        Forms.Context.StartActivity(email);
+                });
 
                 return true;
             }
 
-            return false;
+            if (url.StartsWith("http")) 
+            {
+                Device.BeginInvokeOnMainThread(() => 
+                {
+                    Intent webPage = new Intent(Intent.ActionView, Android.Net.Uri.Parse(url));
+                    if (webPage.ResolveActivity(Forms.Context.PackageManager) != null)
+                        Forms.Context.StartActivity(webPage);
+                });
+
+                return true;
+            }
+
+			return false;
         }
 
         public override void OnReceivedSslError(Android.Webkit.WebView view, SslErrorHandler handler, SslError error)
